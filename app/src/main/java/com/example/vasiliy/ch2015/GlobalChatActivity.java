@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -65,7 +67,6 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
     String ip = "192.168.1.2";
     String port = "8080";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +98,7 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
     protected void onStart() {
         super.onStart();
         if (socketClient != null) {
-            if(!socketClient.getStatus().toString().equals("RUNNING")) {
+            if (!socketClient.getStatus().toString().equals("RUNNING")) {
                 socketClient.execute();
             }
         }
@@ -106,7 +107,7 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onStop() {
         super.onStop();
-        if(socketClient != null) {
+        if (socketClient != null) {
             socketClient.cancel(false);
         }
     }
@@ -152,7 +153,9 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
 
         private boolean connect() {
             try {
+                //InetSocketAddress
                 socket = new Socket(ip, Integer.parseInt(port));
+                //socket = new Socket("globalchat", 8080, InetAddress.getAllByName("192.168.1.2")[0], 8080);
                 socket.setKeepAlive(true);
 
                 in = new BufferedReader((new InputStreamReader(socket.getInputStream())));
@@ -186,6 +189,18 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
             }
         }
 
+        private boolean isNotWork() {
+            if (socket != null) {
+                if (socket.isClosed()) {
+                    return true;
+                }
+                if (!socket.isConnected()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         protected void onProgressUpdate(String... params) {
             newMess(params[0]);
         }
@@ -204,17 +219,14 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
                 while (true) {
                     if (isCancelled()) return null;
 
-                    if (socket.isClosed()) {
-                        break;
-                    }
-                    if (!socket.isConnected()) {
+                    if (isNotWork()) {
                         break;
                     }
 
                     StringBuilder sb = new StringBuilder();
                     String str = null;
                     try {
-                        while ((str = in.readLine()) != null) {
+                        while (!socket.isClosed() && (str = in.readLine()) != null) {
                             sb.append(str);
                             isGet = true;
                         }
@@ -232,7 +244,14 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
                     if (!isSend) {
                         isSend = true;
                         out.println(messForSend);
+                        out.flush();
                     }
+                }
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
                 this.disconnect();
