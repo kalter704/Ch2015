@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String url = "http://ukkk6aaa625d.kalter704.koding.io:8080/";
+        //String url = "http://ukkk6aaa625d.kalter704.koding.io:8080/";
+        String url = "http://192.168.1.2:8080";
 
         ((Button) findViewById(R.id.btnToGlobalChat)).setOnClickListener(this);
 
