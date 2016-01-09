@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.vasiliy.ch2015.TempActivity">
+
+    <EditText
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:text="starttxt"
+        android:minWidth="100dp"
+        android:inputType="text"
+        android:layout_above="@+id/btn"
+        android:layout_alignRight="@+id/btn"
+        android:layout_alignEnd="@+id/btn" />
+
+    <Button
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:text="sendstr"
+        android:id="@+id/btn"
+        android:layout_gravity="center_horizontal"
+        android:minHeight="71dp"
+        android:minWidth="400dp"
+        android:layout_marginBottom="51dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ipstr"
+        android:inputType="phone"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText"
+        android:layout_marginTop="60dp"
+        android:text="ipstring"
+        android:minWidth="156dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/portstr"
+        android:text="portstr"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/ipstr"
+        android:layout_alignLeft="@+id/ipstr"
+        android:layout_alignStart="@+id/ipstr"
+        android:minWidth="156dp"
+        android:maxWidth="156dp"
+        android:layout_alignRight="@+id/ipstr"
+        android:layout_alignEnd="@+id/ipstr" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="striptxt"
+        android:id="@+id/textView"
+        android:layout_above="@+id/portstr"
+        android:layout_alignRight="@+id/editText"
+        android:layout_alignEnd="@+id/editText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="strporttxt"
+        android:id="@+id/textView2"
+        android:layout_alignBottom="@+id/portstr"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="strcontxt"
+        android:id="@+id/cnbtn"
+        android:layout_below="@+id/portstr"
+        android:layout_alignLeft="@+id/portstr"
+        android:layout_alignStart="@+id/portstr"
+        android:minWidth="70dp" />
+
+</RelativeLayout>

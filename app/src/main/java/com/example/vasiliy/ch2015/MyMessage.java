@@ -43,8 +43,7 @@ public class MyMessage {
     }
 
     public String toJSON() {
-        return "\"name\" \"" + who + "\", \"text\" \"" + what + "\"";
+        return "{\"name\":\"" + who + "\", \"text\":\"" + what + "\"}";
     }
-
 
 }

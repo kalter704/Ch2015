@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //String url = "http://192.168.1.2:8080";
 
         ((Button) findViewById(R.id.btnToGlobalChat)).setOnClickListener(this);
+        ((Button) findViewById(R.id.btnToChangeName)).setOnClickListener(this);
+        /*
+        ((Button) findViewById(R.id.btnToTemp)).setOnClickListener(this);
+        ((Button) findViewById(R.id.btnToServerSide)).setOnClickListener(this);
+        ((Button) findViewById(R.id.btnToClientSide)).setOnClickListener(this);
+        */
 
         //new MyAsyncTask().execute(url);
+
+        if (MyUser.getInstance(this).getName() == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+
+        ((TextView) findViewById(R.id.tvHello)).setText("Привет " + MyUser.getName());
 
     }
 
@@ -92,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return null;
     }
 
-    private String parseFromJSON(String resourse){
+    private String parseFromJSON(String resourse) {
         JSONObject dataJsonObject;
         String response = null;
         try {
@@ -107,7 +120,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(MainActivity.this, GlobalChatActivity.class);
+        Intent intent = null;
+        switch (v.getId()) {
+            case R.id.btnToGlobalChat:
+                intent = new Intent(MainActivity.this, GlobalChatActivity.class);
+                break;
+            case R.id.btnToChangeName:
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+            /*
+            case R.id.btnToTemp:
+                intent = new Intent(MainActivity.this, TempActivity.class);
+                break;
+            case R.id.btnToClientSide:
+                intent = new Intent(MainActivity.this, ClientSideActivity.class);
+                break;
+            case R.id.btnToServerSide:
+                intent = new Intent(MainActivity.this, ServerSideActivity.class);
+                break;
+                */
+        }
         startActivity(intent);
     }
 }
